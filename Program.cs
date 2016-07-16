@@ -19,7 +19,18 @@ namespace TopshelfWindowsService
                     serviceInstance.ConstructUsing(() => new ConverterService());
                     serviceInstance.WhenStarted(execute => execute.Start());
                     serviceInstance.WhenStopped(execute => execute.Stop());
+                    serviceInstance.WhenPaused(execute => execute.Pause());
+                    serviceInstance.WhenContinued(execute => execute.Continue());
+                    serviceInstance.WhenCustomCommandReceived((execute, hostControl, commandNumber) => execute.CustomCommand(commandNumber));
                 });
+                serviceConfig.EnableServiceRecovery(recoveryOption =>
+                {
+                    recoveryOption.RestartService(1);
+                    recoveryOption.RestartService(5);
+                    recoveryOption.RunProgram(10, @"c:\someprogram.exe");
+                });
+                serviceConfig.EnablePauseAndContinue();
+                serviceConfig.RunAsLocalService();
                 serviceConfig.SetServiceName("FileConverter");
                 serviceConfig.SetDisplayName("File Converter");
                 serviceConfig.SetDescription("Demo file converter");
