@@ -30,7 +30,7 @@ namespace TopshelfWindowsService
                     recoveryOption.RunProgram(10, @"c:\someprogram.exe");
                 });
                 serviceConfig.EnablePauseAndContinue();
-                serviceConfig.RunAsLocalService();
+                serviceConfig.RunAsLocalSystem();
                 serviceConfig.SetServiceName("FileConverter");
                 serviceConfig.SetDisplayName("File Converter");
                 serviceConfig.SetDescription("Demo file converter");

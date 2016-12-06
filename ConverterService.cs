@@ -19,6 +19,7 @@ namespace TopshelfWindowsService
             _watcher.Created += _watcher_Created;
             _watcher.IncludeSubdirectories = false;
             _watcher.EnableRaisingEvents = true;
+            _logWriter.InfoFormat("Started service");
             return true;
         }
 
